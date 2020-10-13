@@ -1,21 +1,85 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bookers3</title>
+    <title>Bookers</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://kit.fontawesome.com/42a4d3a197.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "新規登録", new_user_registration_path %>
-      <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
-    <%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <nav class="nav navbar-nav navbar-left">
+          <span class="nav-title">Bookers</span>
+        </nav>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to user_path(current_user.id) do %>
+                <i class="fas fa-home"></i> Home
+              <% end %>
+            </li>
+            <li>
+              <%= link_to users_path do %>
+                <i class="fas fa-user"></i>Users
+              <% end %>
+            </li>
+            <li>
+              <%= link_to books_path do %>
+                <i class="fas fa-book"></i>Books
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fas fa-sign-out-alt"></i>logout
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to root_path do %>
+                <i class="fas fa-home"></i>Home
+              <% end %>
+            </li>
+            <li>
+              <%= link_to home_about_path do %>
+                <i class="fas fa-link"></i>About
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path do %>
+                <i class="fas fa-edit"></i>sign up
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path do %>
+                <i class="fas fa-sign-in-alt"></i>login
+              <% end %>
+            </li>
+          <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="body">
+      <div class="container">
+        <p class="pop"><%= notice %></p>
+        <div class="row">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-3 col-xs-offset-9">
+            <p>CopyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,29 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @user.errors.count %>errors prohibited this user from begin saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<h2>User info</h2>
+<%= form_with model:@user, local:true do |f| %>
+  <div class="field">
+    <label>Name</label>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+  <div class="field">
+    <label>Image</label>
+    <%= f.attachment_field :profile_image, class: "user-edit-form" %>
+  </div>
+  <div class="field">
+    <label>Introduction</label>
+    <%= f.text_field :introduction %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update User" %>
+  </div>
+<% end %>
+
